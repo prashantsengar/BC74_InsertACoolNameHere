@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">iSafe_SIH202_IACNH</string>
+
+<!--    2nd commit-->
+    <string name="verify_code">Verification Code</string>
+    <string name="verify_code_content">Enter the six digit verification code sent to your mobile.</string>
+    <string name="verify">Verify</string>
+    <string name="enter_no">Mobile Verification</string>
+    <string name="enter_no_body">Enter your mobile number to receive a verification code.</string>
 </resources>
