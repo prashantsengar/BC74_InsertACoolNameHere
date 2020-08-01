@@ -100,6 +100,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:gravity="center"
+                            android:onClick="unsafe_nearby"
                             android:textColor="#E6E2E2">
                         </Button>
                         <TextView
@@ -129,6 +130,7 @@
                             android:layout_height="80dp"
                             android:backgroundTint="#00041B"
                             android:gravity="center"
+                            android:onClick="routes"
                             android:textColor="#E6E2E2">
 
                         </Button>
@@ -156,6 +158,7 @@
                             android:layout_height="80dp"
                             android:backgroundTint="#00041B"
                             android:gravity="center"
+                            android:onClick="enter_prime"
                             android:textColor="#E6E2E2">
                         </Button>
 
@@ -192,6 +195,7 @@
                             android:layout_height="80dp"
                             android:backgroundTint="#00041B"
                             android:gravity="center"
+                            android:onClick="Update_loc"
                             android:textColor="#E6E2E2">
 
                         </Button>
@@ -217,6 +221,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:gravity="center"
+                            android:onClick="share_loc"
                             android:textColor="#E6E2E2">
                         </Button>
 
@@ -244,6 +249,7 @@
                             android:layout_width="80dp"
                             android:layout_height="80dp"
                             android:gravity="center"
+                            android:onClick="location_sharing"
                             android:textColor="#E6E2E2">
 
                         </Button>
@@ -315,6 +321,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
+                            android:onClick="onToggleClicked"
                             android:layout_centerHorizontal="true"
                             android:layout_marginLeft="80dp" />
                     </LinearLayout>
@@ -346,6 +353,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_centerHorizontal="true"
+                            android:onClick="toggleclick"
                             android:layout_marginLeft="53dp" />
                     </LinearLayout>
                 </LinearLayout>
