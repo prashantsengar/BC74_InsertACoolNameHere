@@ -87,8 +87,8 @@ def send_sos():
     except Exception as e:
         phone = '8350925585'
 
-    app_functions.send_sos(sos_qt, lat, long, phone)
-    return {'success':True}
+    result = app_functions.send_sos(sos_qt, lat, long, phone)
+    return {'success':True, 'nearby':result}
 
 @app.route('/register')
 def register_sos_place():

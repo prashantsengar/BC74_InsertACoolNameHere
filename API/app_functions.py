@@ -59,8 +59,9 @@ def send_sos(sos_qt, lat, long, phone):
         tries+=1
         qr*=2
     print(len(results))
-
-    mark_sos([result.email for result in results], lat, long, phone)
+    details = [result.email for result in results]
+    mark_sos(details, lat, long, phone)
+    return details
 
 def mark_sos(locations, lat, long, phone):
     for location in locations:
