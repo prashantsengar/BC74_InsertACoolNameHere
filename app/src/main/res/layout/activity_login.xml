@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:background="@color/colorPrimary"
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:foregroundGravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"><TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Police Side Login Section"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textColor="#FAF9F9"
+        android:textSize="26dp"
+        android:textStyle="bold"/>
+        <View
+            android:layout_marginTop="29dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F8F4F4" />
+        <LinearLayout
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter your email"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="15dp"/>
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Enter your email"
+                android:textColor="#fff"
+                android:textColorHint="#fff"
+                android:textSize="15dp"/>
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:onClick="login"
+                android:text="Login"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
