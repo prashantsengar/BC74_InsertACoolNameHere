@@ -81,6 +81,7 @@ def send_sos():
     args = request.args
     lat = float(args['lat'])
     long = float(args['long'])
+    print(lat, long)
     try:
         phone = args['phone']
     except Exception as e:
@@ -103,6 +104,12 @@ def register_sos_place():
 def show_qt():
     # print(qt)
     return str(qt.show())
+
+@app.route('/show_sos_qt')
+def show_sos_qt():
+    # print(qt)
+    return str(sos_qt.show())
+
 
 @app.route('/')
 def home():

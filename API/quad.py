@@ -21,6 +21,8 @@ class cell:
 
     def contains(self, pt):
         x, y = abs(pt.x), abs(pt.y)
+        # print(x,y)
+        # print(self.max_x,self.max_y)
         if (
             x <= abs(self.max_x)
             and x >= abs(self.min_x)
@@ -82,6 +84,7 @@ class quad_tree:
 
     def insert(self, pt):
         if not self.boundary.contains(pt):
+            # print('cannot insert')
             return False
 
         self.n_points += 1
