@@ -1,13 +1,14 @@
 package com.sih2020.sih_2020_policeapp;
 
 public class ContactModel {
-    String name, phone,lat,lon;
+    String name, phone,lat,lon,blood;
 
-    public ContactModel(String name, String phone,String lat,String lon) {
+    public ContactModel(String name, String phone,String lat,String lon,String blood) {
         this.name = name;
         this.phone = phone;
         this.lat = lat;
         this.lon = lon;
+        this.blood = blood;
     }
 
     public String getName() {
@@ -40,5 +41,13 @@ public class ContactModel {
 
     public void setLon(String lon) {
         this.lon = lon;
+    }
+
+    public String getBlood() {
+        return blood;
+    }
+
+    public void setBlood(String blood) {
+        this.blood = blood;
     }
 }

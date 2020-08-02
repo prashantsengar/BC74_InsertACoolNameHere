@@ -35,7 +35,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.VH> {
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
         holder.name.setText(contactModel.get(position).getName());
-        holder.phn.setText(contactModel.get(position).getPhone());
+        holder.phn.setText(contactModel.get(position).getBlood());
         lat = contactModel.get(position).getLat();
         lon = contactModel.get(position).getLon();
         no = contactModel.get(position).getPhone();

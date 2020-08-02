@@ -1,14 +1,19 @@
 package com.sih2020.sih_2020_policeapp;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private static final String TAG = "MapsActivity";
     private GoogleMap mMap;
@@ -38,8 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         NoShared = intent.getStringExtra("ContactNo");
-        l1 =  Double.valueOf(intent.getStringExtra("lat"));
-        l2 =  Double.valueOf(intent.getStringExtra("lon"));
+        l1 = Double.valueOf(intent.getStringExtra("lat"));
+        l2 = Double.valueOf(intent.getStringExtra("lon"));
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -52,29 +58,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Location_Shared");
 
 
-        Log.e("MapsActivity",""+NoShared);
+        Log.e("MapsActivity", "" + NoShared);
 
 
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild(no)) {
-
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        contact = snapshot.getKey();
-                        if (contact.equals(NoShared)) {
-                            l1 = Double.valueOf(dataSnapshot.child(no).child("" + contact).child("Latitude").getValue().toString());
-                            l2 = Double.valueOf(dataSnapshot.child(no).child("" + contact).child("Longitude").getValue().toString());
-                        }
-                    }
-                } else {
-                    Toast.makeText(MapsActivity.this, "No user have shared location with you.", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.hasChild(no)) {
+//
+//                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                        contact = snapshot.getKey();
+//                        if (contact.equals(NoShared)) {
+//                            l1 = Double.valueOf(dataSnapshot.child(no).child("" + contact).child("Latitude").getValue().toString());
+//                            l2 = Double.valueOf(dataSnapshot.child(no).child("" + contact).child("Longitude").getValue().toString());
+//                        }
+//                    }
+//                } else {
+//                    Toast.makeText(MapsActivity.this, "No user have shared location with you.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
 
 
     }
@@ -93,7 +99,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         // Add a marker in Sydney and move the camera
-
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
         LatLng latLng = new LatLng(l1, l2);
         Log.e("ltlng", "" + l1 + "  " + l2);
         MarkerOptions markerOptions = new MarkerOptions().position(latLng);
