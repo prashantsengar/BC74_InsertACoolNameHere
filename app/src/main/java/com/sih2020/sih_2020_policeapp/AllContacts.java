@@ -1,11 +1,15 @@
 package com.sih2020.sih_2020_policeapp;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -59,12 +63,7 @@ public class AllContacts extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    NotificationCompat.Builder mBuilder =
-                            new NotificationCompat.Builder(AllContacts.this)
-                                    .setSmallIcon(R.drawable.ic_launcher_background)
-                                    .setContentTitle("SOS raised!")
-                                    .setContentText("Someone raise sos nearby");
-                    mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+                    addNotification();
                     contactModels.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         Log.e("contact::",""+snapshot.getKey());
@@ -112,5 +111,25 @@ public class AllContacts extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+                        .setContentTitle("Sos Alert!")
+                        .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                        .setSound(Uri.parse("android.resource://"
+                                + getApplicationContext().getPackageName() + "/" + R.raw.alert))
+                        .setContentText("Someone raised sos nearby...");
+
+        Intent notificationIntent = new Intent(this, AllContacts.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 }

@@ -2,9 +2,14 @@ package com.sih2020.sih_2020_policeapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     public void nearbySos(View view) {
+//        addNotification();
         DatabaseReference reference = FirebaseDatabase.getInstance("https://crime1.firebaseio.com/").getReference().child("Location_Shared");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,6 +75,22 @@ public class MainActivity2 extends AppCompatActivity {
 //        }
 //        Intent intent = new Intent(this, NearbySOS.class);
 //        startActivity(intent);
+    }
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
 }
