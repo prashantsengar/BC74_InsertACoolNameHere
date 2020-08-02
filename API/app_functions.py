@@ -3,6 +3,7 @@ from fb import db as dbreference
 import time
 
 query_range = 0.07207 / 4
+# query_range = 6
 
 
 def get_nearby(qt, lat, long):
@@ -46,6 +47,7 @@ def send_sos(sos_qt, lat, long, phone):
     '''
     cell = quad.cell(abs(lat), abs(long), query_range, query_range)
     results = sos_qt.query(cell)
+    # print(len(results))
     tries=0
     qr = query_range*2
     while len(results)<0 or tries<5:
@@ -56,6 +58,7 @@ def send_sos(sos_qt, lat, long, phone):
         results = sos_qt.query(cell)
         tries+=1
         qr*=2
+    print(len(results))
 
     mark_sos([result.email for result in results], lat, long, phone)
 
@@ -65,10 +68,13 @@ def mark_sos(locations, lat, long, phone):
 
         time_ref = int(time.time())
 
-        dbreference.child('sos_location').child(location).child('sos').child(time_ref).child({'lat':lat, 'long':long, 'timestamp':time_ref, 'phone':phone})
+        phone = phone.lstrip('+91')
+        bloodgroup = dbreference.child('user').child(phone).child('bloodgroup').get().val()
+
+        dbreference.child('sos_location').child(location).child('sos').child(str(time_ref)).set({'lat':lat, 'long':long, 'timestamp':time_ref, 'phone':phone, 'bloodgroup':bloodgroup})
 
 def create_sos_location(sos_qt, lat, long, email):
     '''
     Register a new hospital or police station
     '''
-    utils.insert_to_sos_qt(sos_qt, lat, long, email)
+    utils.insert_to_sos_qt(sos_qt, lat, long, email)        
