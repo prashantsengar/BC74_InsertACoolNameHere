@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
@@ -44,8 +43,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class update_spot extends FragmentActivity implements  GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, OnMapReadyCallback{
-    private EditText e1, e2,e3;
+public class update_spot extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener, OnMapReadyCallback {
+    private EditText e1, e2, e3;
     private Button b1;
     private GoogleMap mMap;
     Location location;
@@ -53,11 +52,11 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
     protected LocationListener locationListener;
     protected Context context;
     TextView txtLat;
-    int no_user=0;
+    int no_user = 0;
     String lat;
     DatabaseReference user_no;
     String provider;
-    String latti,longgi;
+    String latti, longgi;
 
     protected String latitude, longitude;
     protected boolean gps_enabled, network_enabled;
@@ -65,12 +64,11 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_spot);
+        setContentView(R.layout.update_spot);
         e1 = (EditText) findViewById(R.id.id);
         e2 = (EditText) findViewById(R.id.pswd);
         b1 = (Button) findViewById(R.id.submit);
-        e3 = (EditText)findViewById(R.id.detail);
-
+        e3 = (EditText) findViewById(R.id.detail);
 
 
         SupportMapFragment mapfrag = (SupportMapFragment) getSupportFragmentManager()
@@ -82,8 +80,7 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
     public void submit(View view) {
         String s1 = e1.getText().toString();
         String s2 = e2.getText().toString();
-        if(s1.equals("risi") && s2.equals("risi"))
-        {
+        if (s1.equals("risi") && s2.equals("risi")) {
 
             push();
 
@@ -91,16 +88,12 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
     }
 
 
-
-
-
     public void custom_submit(View view) {
 
-        Toast.makeText(this,"Latti : "+latti+" Longi : "+longgi,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Latti : " + latti + " Longi : " + longgi, Toast.LENGTH_LONG).show();
         String s1 = e1.getText().toString();
         String s2 = e2.getText().toString();
-        if(s1.equals("risi") && s2.equals("risi"))
-        {
+        if (s1.equals("risi") && s2.equals("risi")) {
             push();
         }
 
@@ -111,10 +104,11 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
         if (location != null) {
             latti = String.valueOf(location.getLatitude());
             longgi = String.valueOf(location.getLongitude());
-            Toast.makeText(this,"latti :"+latti+" lon :"+longgi,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "latti :" + latti + " lon :" + longgi, Toast.LENGTH_LONG).show();
         }
 
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -164,25 +158,24 @@ public class update_spot extends FragmentActivity implements  GoogleApiClient.Co
 
     }
 
-    void push()
-    {
+    void push() {
 //        if(latti!=null && longgi != null) {
-            ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
-            Call<Crime> calllatest;
-            calllatest = apiInterface.pushcrime(latti,longgi, e3.getText().toString());
-            calllatest.enqueue(new Callback<Crime>() {
-                @Override
-                public void onResponse(Call<Crime> call, Response<Crime> response) {
-                    Log.e("call", call.request().url().toString());
-                    Log.e("responnse", String.valueOf(response));
+        ApiInterface apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        Call<Crime> calllatest;
+        calllatest = apiInterface.pushcrime(latti, longgi, e3.getText().toString());
+        calllatest.enqueue(new Callback<Crime>() {
+            @Override
+            public void onResponse(Call<Crime> call, Response<Crime> response) {
+                Log.e("call", call.request().url().toString());
+                Log.e("responnse", String.valueOf(response));
 
-                }
+            }
 
-                @Override
-                public void onFailure(Call<Crime> call, Throwable t) {
+            @Override
+            public void onFailure(Call<Crime> call, Throwable t) {
 
-                }
-            });
+            }
+        });
 //        }
     }
 
