@@ -28,4 +28,9 @@ SIH2020 - BC74 - InsertACoolNameHere - IIIT Una
  ### Everything about them has been explained here
 https://github.com/prashantsengar/InsertACoolNameHere/wiki/Using-QuadTree
  
+ ###Link for public apk
+ https://drive.google.com/file/d/11cM-1yK9_911iQF7j2-LyCQtnIjm9eCn/view?usp=sharing
+ 
+ ###Link for police side apk
+ https://drive.google.com/file/d/1IcLRe-BuhqRFYtu1pVpbz60aeOZXbAZw/view?usp=sharing
  
