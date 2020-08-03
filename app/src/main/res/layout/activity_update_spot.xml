@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#06125E"
-    tools:context="com.crime_mapping.sih2020.sos.update_spot">
+    android:background="@color/white"
+    tools:context="com.crime_mapping.electrothon.sos.update_spot">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,20 +36,21 @@
                 android:hint="userID"
                 android:inputType="textPersonName" />
 
+
             <EditText
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/pswd"
                 android:paddingStart="20dp"
-
+                android:inputType="textPassword"
                 android:paddingEnd="20dp"
                 android:hint="password"
                 android:background="@drawable/edit_text_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+
                 />
             <EditText
                 android:paddingEnd="20dp"
@@ -98,7 +99,7 @@
                     android:name="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:context="com.crime_mapping.sih2020.sos.update_spot" />
+                    tools:context="com.crime_mapping.electrothon.sos.update_spot" />
             </LinearLayout>
             <Button
                 android:id="@+id/submit_custom"
