@@ -1,12 +1,15 @@
 # InsertACoolNameHere
 SIH2020 - BC74 - InsertACoolNameHere - IIIT Una
 
+
 ## Important Links
 [SIH Proposal](https://drive.google.com/file/d/171J-jXCpIm7Sq7dt7YiNh-AeD_OvxeJ3/view?usp=sharing) for our team 
 [Demo video](https://youtu.be/y5yd9nk33j0) for the last updated app
 [Wiki](https://github.com/prashantsengar/InsertACoolNameHere/wiki) with the complete documentation
 [API](https://sihapi.psproject.repl.co/)
-[Portal](https://isafeadminportal.psproject.repl.co/)
+[Portal](https://isafeadminportal.psproject.repl.co/) - Admin credentials: admin:password123
+
+**For any access, prashantsengar5[at]gmail[dot]com can be contacted**
 
 ### Clone this Project using command
     git clone https://github.com/prashantsengar/InsertACoolNameHere.git
