@@ -15,8 +15,8 @@ SIH2020 - BC74 - InsertACoolNameHere - IIIT Una
 
  1. [API](/API) folder inside of this contains apis needed for all the endPoints made in Python, Flask.
  2. [Portal](/ADMIN_PORTAL) folder contains the code of the admin portal for the registration of users.
- 3. A Police Side app
- 4. A Civilian Side app
+ 3. A Police Side app [branch Polici]
+ 4. A Civilian Side app [branch Master, also see release]
  
  ### Please refer to all the features here: 
  https://github.com/prashantsengar/InsertACoolNameHere/wiki/Features-Details
