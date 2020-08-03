@@ -3,6 +3,7 @@ package com.sih2020.InsertACoolNameHere;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.TileOverlay;
 import com.google.android.gms.maps.model.TileOverlayOptions;
@@ -36,6 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "MpasActivity2";
     private GoogleMap mMap;
     String a1, a2;
     double lat, lon;
@@ -72,33 +75,36 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
         okhttpbuilder.addInterceptor(logging);
 
         Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://demo9608891.mockable.io/")
+                .baseUrl("https://sihapi--psproject.repl.co/")
                 .addConverterFactory(GsonConverterFactory.create());
 
         retrofit = builder.build();
 
         SihApi sihApi = retrofit.create(SihApi.class);
-        Call<List<LatLong>> call = sihApi.getCoordinates();
-        call.enqueue(new Callback<List<LatLong>>() {
+        Call<RouteResponse> call = sihApi.getUnsafeAreas(a1, a2);
+        call.enqueue(new Callback<RouteResponse>() {
             @Override
-            public void onResponse(Call<List<LatLong>> call, Response<List<LatLong>> response) {
-                Log.e("response", "" + response.code());
+            public void onResponse(Call<RouteResponse> call, Response<RouteResponse> response) {
                 if (response.isSuccessful()) {
-                    Log.e("responsee", "" + String.valueOf(response.body()));
-                    List<LatLong> list = response.body();
-                    for (LatLong latLong : list) {
-                        Pointslist.add(new LatLng(latLong.getLat(), latLong.getLng()));
-                        Log.e("list", "" + latLong.getLat());
+                    Data[] data = response.body().getData();
+                    Log.e(TAG, "" + data);
+                    for (Data data1 : data) {
+                        LatLng ltlng = new LatLng(data1.getX(), data1.getY());
+                        mMap.addMarker(new MarkerOptions().position(ltlng).title(data1.getDescription()));
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(ltlng, 16);
+                        mMap.animateCamera(cameraUpdate);
+
                     }
-                    addHeatMap();
+
                 }
             }
 
             @Override
-            public void onFailure(Call<List<LatLong>> call, Throwable t) {
-                Log.e("failed", "" + t.getMessage());
+            public void onFailure(Call<RouteResponse> call, Throwable t) {
+
             }
         });
+
 
     }
 
@@ -146,17 +152,49 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+        /*
+        DatabaseReference d1 = FirebaseDatabase.getInstance().getReference().child("spots");
+        d1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    a = dsp.child("lat").getValue().toString();
+                    b = dsp.child("lon").getValue().toString();
+                    t = dsp.child("details").getValue().toString();
+                    LatLng points = new LatLng(Double.valueOf(a), Double.valueOf(b));
+                    mMap.addMarker(new MarkerOptions().position(points).title(t));
+                    Circle circle = mMap.addCircle(new CircleOptions()
+                            .center(points)
+                            .radius(35)
+                            .strokeColor(Color.BLUE)
+                            .strokeWidth(2f)
+                            .fillColor(Color.argb(50, 255, 0, 0)));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+         */
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = mMap.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.map_style));
 
-
-
-
-
+            if (!success) {
+                Log.e("MapsActivityRaw", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("MapsActivityRaw", "Can't find style.", e);
+        }
         // Add a marker in Sydney and move the camera
 
         FetchCoordinates();
         mMap.setMyLocationEnabled(true);
-        LatLng points = new LatLng(31.708535, 76.527377);
-        mMap.addMarker(new MarkerOptions().position(points).title("NIT Hamirpur"));
+        LatLng points = new LatLng(lat, lon);
+        mMap.addMarker(new MarkerOptions().position(points).title("You"));
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(points, 16);
         mMap.animateCamera(cameraUpdate);
     }
